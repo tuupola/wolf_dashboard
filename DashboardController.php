@@ -27,7 +27,7 @@ class DashboardController extends PluginController
 
     function index() {
         $this->display('dashboard/views/index', array(
-            'log_entry' => Record::findAllFrom('DashboardLogEntry')
+            'log_entry' => Record::findAllFrom('DashboardLogEntry', '1=1 ORDER BY created_on DESC')
         ));
     }
     
