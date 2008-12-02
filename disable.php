@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Funky Cache - Frog CMS caching plugin
+ * Dashboard - Frog CMS dashboard plugin
  *
  * Copyright (c) 2008 Mika Tuupola
  *
