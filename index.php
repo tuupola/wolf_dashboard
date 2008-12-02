@@ -22,7 +22,6 @@ define('DASHBOARD_LOG_NOTICE',   5);
 define('DASHBOARD_LOG_INFO',     6);
 define('DASHBOARD_LOG_DEBUG',    7);
 
-require_once 'models/DashboardLogEntry.php';
 
 Plugin::setInfos(array(
     'id'          => 'dashboard',
@@ -37,6 +36,8 @@ Plugin::setInfos(array(
 
 /* Stuff for backend. */
 if (class_exists('AutoLoader')) {
+    require_once 'models/DashboardLogEntry.php';
+    
     Plugin::addController('dashboard', 'Dashboard');
 
     Observer::observe('page_edit_after_save',   'dashboard_log_page_edit');
