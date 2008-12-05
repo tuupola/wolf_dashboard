@@ -1,0 +1,15 @@
+tr.odd, tr.odd > td {
+    background-color: #dfdfdf;
+    border-top: 0px;
+}
+
+tr.even, tr.even > td {
+    background-color: #fff;
+    border-top: 0px;
+}
+
+table.fieldset {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
