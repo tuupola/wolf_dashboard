@@ -13,3 +13,6 @@ table.fieldset {
     margin-bottom: 10px;
 }
 
+td.date {
+    width: 180px;
+};

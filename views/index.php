@@ -7,7 +7,7 @@
   <?php foreach ($log_entry_today as $entry): ?> 
     <tr class="<?php print odd_even(); ?>">
       <td><?php print $entry->message ?></td>
-      <td><?php print $entry->created_on ?></td>
+      <td class="date"><?php print $entry->created_on ?></td>
     </tr>	
   <?php endforeach; ?>
   </table>
@@ -18,7 +18,7 @@
   <?php foreach ($log_entry_yesterday as $entry): ?>
     <tr class="<?php print odd_even(); ?>">
       <td><?php print $entry->message ?></td>
-      <td><?php print $entry->created_on ?></td>
+      <td class="date"><?php print $entry->created_on ?></td>
     </tr>	
     <?php endforeach; ?>
   </table>
@@ -29,7 +29,7 @@
   <?php foreach ($log_entry_older as $entry): ?>
     <tr class="<?php print odd_even(); ?>">
       <td><?php print $entry->message ?></td>
-      <td><?php print $entry->created_on ?></td>
+      <td class="date"><?php print $entry->created_on ?></td>
     </tr>	
     <?php endforeach; ?>
   </table>
