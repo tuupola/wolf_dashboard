@@ -52,6 +52,13 @@ if (class_exists('AutoLoader')) {
     Observer::observe('snippet_after_delete',    'dashboard_log_snippet_delete');
     Observer::observe('snippet_after_add',       'dashboard_log_snippet_add');
     Observer::observe('snippet_after_edit',      'dashboard_log_snippet_edit');
+
+    Observer::observe('comment_after_delete',    'dashboard_log_comment_delete');
+    Observer::observe('comment_after_add',       'dashboard_log_comment_add');
+    Observer::observe('comment_after_edit',      'dashboard_log_comment_edit');
+    Observer::observe('comment_after_approve',   'dashboard_log_comment_approve');
+    Observer::observe('comment_after_unapprove', 'dashboard_log_comment_unapprove');
+
     
     function dashboard_log_page_add($page) {
         $linked_title     = sprintf('<a href="%s">%s</a>', 
@@ -156,5 +163,82 @@ if (class_exists('AutoLoader')) {
         $entry = new DashboardLogEntry($data);
         $entry->save();
     }
+    
+    function dashboard_log_comment_add($comment) {
+
+        /*
+        It seems Page class here is NOT the model but the other Page class?
+        $page = Page::findByIdFrom('Page', $comment->page_id);
+        */
+        
+        /* TODO: Fetch page title. */
+        $linked_title     = sprintf('<a href="%s">%s</a>', 
+                                    get_url('plugin/comment/edit/' . $comment->id), 'posted a comment');
+        $data['ident']    = 'comment';
+        $data['priority'] = DASHBOARD_LOG_NOTICE;
+        $data['message']  = __(':name :title.', 
+                                 array(':name'  => $comment->author_name,
+                                       ':title' =>  $linked_title));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
+
+    function dashboard_log_comment_delete($comment) {
+        
+        /* TODO: Fetch page title. */
+        $data['ident']    = 'comment';
+        $data['priority'] = DASHBOARD_LOG_NOTICE;
+        $data['message']  = __(':admin_name deleted comment by :author_name.', 
+                                 array(':author_name' => $comment->author_name,
+                                       ':admin_name'  => AuthUser::getRecord()->name));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
+
+    function dashboard_log_comment_approve($comment) {
+        
+        /* TODO: Fetch page title. */
+        $linked_title     = sprintf('<a href="%s">%s</a>', 
+                                    get_url('plugin/comment/edit/' . $comment->id), 'comment');
+        $data['ident']    = 'comment';
+        $data['priority'] = DASHBOARD_LOG_NOTICE;
+        $data['message']  = __(':admin_name approved :title by :author_name.', 
+                                 array(':author_name' => $comment->author_name,
+                                       ':title'       => $linked_title,
+                                       ':admin_name'  => AuthUser::getRecord()->name));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
+
+    function dashboard_log_comment_unapprove($comment) {
+        
+        /* TODO: Fetch page title. */
+        $linked_title     = sprintf('<a href="%s">%s</a>', 
+                                    get_url('plugin/comment/edit/' . $comment->id), 'comment');
+        $data['ident']    = 'comment';
+        $data['priority'] = DASHBOARD_LOG_NOTICE;
+        $data['message']  = __(':admin_name rejected :title by :author_name.', 
+                                 array(':author_name' => $comment->author_name,
+                                       ':title'       => $linked_title,
+                                       ':admin_name'  => AuthUser::getRecord()->name));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
+
+    function dashboard_log_comment_edit($comment) {
+        
+        /* TODO: Fetch page title. */
+        $linked_title     = sprintf('<a href="%s">%s</a>', 
+                                    get_url('plugin/comment/edit/' . $comment->id), 'comment');
+        $data['ident']    = 'comment';
+        $data['priority'] = DASHBOARD_LOG_NOTICE;
+        $data['message']  = __(':admin_name edited :title by :author_name.', 
+                                 array(':author_name' => $comment->author_name,
+                                       ':title'       => $linked_title,
+                                       ':admin_name'  => AuthUser::getRecord()->name));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
+
 
 } 
