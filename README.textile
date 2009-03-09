@@ -1,0 +1,10 @@
+h3. Changelog
+
+h4. 0.2.0
+
+* Log Plugin and Login events.
+
+h4. 0.1.0
+
+* Initial release.
+

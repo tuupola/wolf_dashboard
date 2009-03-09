@@ -3,7 +3,7 @@
 /*
  * Dashboard - Frog CMS dashboard plugin
  *
- * Copyright (c) 2008 Mika Tuupola
+ * Copyright (c) 2008-2009 Mika Tuupola
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -27,15 +27,16 @@ Plugin::setInfos(array(
     'id'          => 'dashboard',
     'title'       => 'Dashboard', 
     'description' => 'Keep up to date what is happening with your site.', 
-    'version'     => '0.1.0', 
+    'version'     => '0.2.0', 
     'license'     => 'MIT',
+    'author'      => 'Mika Tuupola',    
     'require_frog_version' => '0.9.3',
     'update_url'  => 'http://www.appelsiini.net/download/frog-plugins.xml',
     'website'     => 'http://www.appelsiini.net/'
 ));
 
 /* Stuff for backend. */
-if (class_exists('AutoLoader')) {
+if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
     require_once 'models/DashboardLogEntry.php';
     
     Plugin::addController('dashboard', 'Dashboard');
@@ -58,7 +59,12 @@ if (class_exists('AutoLoader')) {
     Observer::observe('comment_after_edit',      'dashboard_log_comment_edit');
     Observer::observe('comment_after_approve',   'dashboard_log_comment_approve');
     Observer::observe('comment_after_unapprove', 'dashboard_log_comment_unapprove');
+    
+    Observer::observe('plugin_after_enable',     'dashboard_log_plugin_enable');
+    Observer::observe('plugin_after_disable',    'dashboard_log_plugin_disable');
 
+    Observer::observe('admin_login_success',     'dashboard_log_admin_login');
+    Observer::observe('admin_login_failed',      'dashboard_log_admin_login_failure');
     
     function dashboard_log_page_add($page) {
         $linked_title     = sprintf('<a href="%s">%s</a>', 
@@ -239,6 +245,44 @@ if (class_exists('AutoLoader')) {
         $entry = new DashboardLogEntry($data);
         $entry->save();
     }
+    
+    function dashboard_log_plugin_enable($plugin) {
+        $data['ident']    = 'core';
+        $data['priority'] = DASHBOARD_LOG_NOTICE;
+        $data['message']  = __('Plugin <b>:title</b> was enabled by :name', 
+                                 array(':title' => $plugin,
+                                       ':name'  => AuthUser::getRecord()->name));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
+    
+    function dashboard_log_plugin_disable($plugin) {        
+        $plugin_data      = Plugin::findAll();
+        $data['ident']    = 'core';
+        $data['priority'] = DASHBOARD_LOG_NOTICE;
+        $data['message']  = __('Plugin <b>:title</b> was disabled by :name', 
+                                 array(':title' => $plugin, 
+                                       ':name'  => AuthUser::getRecord()->name));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
+    
+    function dashboard_log_admin_login($username) {
+        $data['ident']    = 'core';
+        $data['priority'] = DASHBOARD_LOG_NOTICE;
+        $data['message']  = __('User <b>:name</b> logged in.', 
+                                 array(':name'  => $username));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
 
+    function dashboard_log_admin_login_failure($username) {
+        $data['ident']    = 'core';
+        $data['priority'] = DASHBOARD_LOG_NOTICE;
+        $data['message']  = __('User <b>:name</b> failed logging in.', 
+                                 array(':name'  => $username));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
 
 } 
