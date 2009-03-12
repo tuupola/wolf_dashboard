@@ -1,8 +1,13 @@
 h3. Changelog
 
+h4. 0.2.1
+
+* Use pretty date in dates. Show real date as tooltip.
+* Fix problem of _before yesterday_ showing all log entries.
+
 h4. 0.2.0
 
-* Log Plugin and Login events.
+* Log plugin and login events.
 
 h4. 0.1.0
 

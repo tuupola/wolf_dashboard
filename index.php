@@ -37,7 +37,9 @@ Plugin::setInfos(array(
 
 /* Stuff for backend. */
 if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
-    require_once 'models/DashboardLogEntry.php';
+    
+    AutoLoader::addFolder(dirname(__FILE__) . '/models');
+    AutoLoader::addFolder(dirname(__FILE__) . '/lib');
     
     Plugin::addController('dashboard', 'Dashboard');
 

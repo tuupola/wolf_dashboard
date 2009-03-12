@@ -8,7 +8,7 @@
 // Ported to PHP >= 5.1 by Zach Leatherman (zachleat.com)
 // Slight modification denoted below to handle months and years.
 // http://www.zachleat.com/web/2008/02/10/php-pretty-date/
-class Date_Difference
+class DateDifference
 {
     public static function getStringResolved($date, $compareTo = NULL)
     {
