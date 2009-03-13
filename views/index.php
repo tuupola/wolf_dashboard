@@ -12,7 +12,6 @@
   <?php endforeach; ?>
   </table>
   <br />
-  
   <b><?php echo __('Yesterday'); ?></b>
   <table class="fieldset" cellpadding="0" cellspacing="0" border="0">
   <?php foreach ($log_entry_yesterday as $entry): ?>
