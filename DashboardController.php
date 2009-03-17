@@ -18,7 +18,7 @@ class DashboardController extends PluginController
     function __construct() {
         AuthUser::load();
         if (!(AuthUser::isLoggedIn())) {
-            redirect(get_url('login'));            
+            redirect(get_url('login'));
         }
 
         $this->setLayout('backend');
@@ -34,7 +34,7 @@ class DashboardController extends PluginController
     }
     
     function clear() {
-        $log_entry = Record::findAllFrom('DashboardLogEntry');
+        $log_entry = DashboardLogEntry::find();
         foreach ($log_entry as $entry) {
             $entry->delete();
         }        

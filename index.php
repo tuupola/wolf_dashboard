@@ -173,11 +173,6 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
     }
     
     function dashboard_log_comment_add($comment) {
-
-        /*
-        It seems Page class here is NOT the model but the other Page class?
-        $page = Page::findByIdFrom('Page', $comment->page_id);
-        */
         
         /* TODO: Fetch page title. */
         $linked_title     = sprintf('<a href="%s">%s</a>', 
