@@ -27,7 +27,7 @@ Plugin::setInfos(array(
     'id'          => 'dashboard',
     'title'       => 'Dashboard', 
     'description' => 'Keep up to date what is happening with your site.', 
-    'version'     => '0.2.1', 
+    'version'     => '0.2.2', 
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',    
     'require_frog_version' => '0.9.3',
@@ -47,7 +47,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
     Observer::observe('page_add_after_save',    'dashboard_log_page_add');
     Observer::observe('page_delete',            'dashboard_log_page_delete');
     
-    /* These currently only work in MIT fork of Frog. */
+    /* These currently only work in MIT fork or SVN version of Frog. */
     Observer::observe('layout_after_delete',    'dashboard_log_layout_delete');
     Observer::observe('layout_after_add',       'dashboard_log_layout_add');
     Observer::observe('layout_after_edit',      'dashboard_log_layout_edit');
