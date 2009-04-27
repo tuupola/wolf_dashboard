@@ -12,7 +12,12 @@
  *   http://www.appelsiini.net/
  *
  */
- 
+
+/* Prevent direct access. */
+if (!defined("FRAMEWORK_STARTING_MICROTIME")) {
+    die("All your base are belong to us!");
+}
+
 $pdo = Record::getConnection();
 
 $table = TABLE_PREFIX . "dashboard_log";

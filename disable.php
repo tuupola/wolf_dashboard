@@ -13,6 +13,11 @@
  *
  */
 
+/* Prevent direct access. */
+if (!defined("FRAMEWORK_STARTING_MICROTIME")) {
+    die("All your base are belong to us!");
+}
+
 $PDO = Record::getConnection();
 
 $table = TABLE_PREFIX . "dashboard_log";

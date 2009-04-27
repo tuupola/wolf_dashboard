@@ -27,7 +27,6 @@ class DashboardController extends PluginController
 
     function index() {
         $pdo = Record::getConnection();
-        $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
 
         if ('mysql' == $pdo->getAttribute(PDO::ATTR_DRIVER_NAME)) {
              /* Queries for MySQL */
