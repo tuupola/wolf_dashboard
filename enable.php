@@ -29,6 +29,7 @@ if ('mysql' == $pdo->getAttribute(PDO::ATTR_DRIVER_NAME)) {
         ident       CHAR(16) NOT NULL,
         priority    INT NOT NULL,
         message     VARCHAR(255),
+        username    VARCHAR(64),
         created_on  DATETIME DEFAULT NULL,
         PRIMARY KEY (id)
         ) DEFAULT CHARSET=utf8");    
@@ -39,6 +40,7 @@ if ('mysql' == $pdo->getAttribute(PDO::ATTR_DRIVER_NAME)) {
         ident       CHAR(16) NOT NULL,
         priority    INT NOT NULL,
         message     VARCHAR(255),
+        username    VARCHAR(64),
         created_on  DATETIME DEFAULT NULL
         )");
 }

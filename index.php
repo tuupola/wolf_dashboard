@@ -27,7 +27,7 @@ Plugin::setInfos(array(
     'id'          => 'dashboard',
     'title'       => 'Dashboard', 
     'description' => 'Keep up to date what is happening with your site.', 
-    'version'     => '0.2.2', 
+    'version'     => '0.3.0', 
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',    
     'require_frog_version' => '0.9.3',
@@ -47,7 +47,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
     Observer::observe('page_add_after_save',    'dashboard_log_page_add');
     Observer::observe('page_delete',            'dashboard_log_page_delete');
     
-    /* These currently only work in MIT fork or SVN version of Frog. */
+    /* These currently only work in MIT fork or 0.9.5 version of Frog. */
     Observer::observe('layout_after_delete',    'dashboard_log_layout_delete');
     Observer::observe('layout_after_add',       'dashboard_log_layout_add');
     Observer::observe('layout_after_edit',      'dashboard_log_layout_edit');
@@ -67,6 +67,9 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
 
     Observer::observe('admin_login_success',     'dashboard_log_admin_login');
     Observer::observe('admin_login_failed',      'dashboard_log_admin_login_failure');
+    Observer::observe('admin_after_logout',      'dashboard_log_admin_logout');
+    
+    Observer::observe('log_event',               'dashboard_log_event');
     
     function dashboard_log_page_add($page) {
         $linked_title     = sprintf('<a href="%s">%s</a>', 
@@ -283,6 +286,23 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $data['priority'] = DASHBOARD_LOG_NOTICE;
         $data['message']  = __('User <b>:name</b> failed logging in.', 
                                  array(':name'  => $username));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
+    
+    function dashboard_log_admin_logout($username) {
+        $data['ident']    = 'core';
+        $data['priority'] = DASHBOARD_LOG_NOTICE;
+        $data['message']  = __('User <b>:name</b> logged out.', 
+                                 array(':name'  => $username));
+        $entry = new DashboardLogEntry($data);
+        $entry->save();
+    }
+    
+    function dashboard_log_event($message, $priority=DASHBOARD_LOG_NOTICE, $ident='misc') {
+        $data['ident']    = $ident;
+        $data['priority'] = $priority;
+        $data['message']  = $message;
         $entry = new DashboardLogEntry($data);
         $entry->save();
     }

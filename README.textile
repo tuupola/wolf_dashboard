@@ -1,5 +1,22 @@
 h3. Changelog
 
+h4. 0.3.0
+
+* Prevent direct access to enable and disable scripts.
+* Support for SQLite.
+* Log logout event.
+* Log username to separate column in database (for future use).
+* Add FamFamFam icons for pretty log event priorities.
+* Listen to general _log_event_ event. Usefull for other plugin developers who want to log their events. 
+
+*NOTE!* Database schema was changed. Either disable and enable the plugin after upgrading to recreate the table. This will cause you to lose your history. If you do not want to loose history run the following SQL by hand.
+
+<code>
+ALTER TABLE <table_prefix>_dashboard_log 
+ADD COLUMN username VARCHAR(64) 
+AFTER message;
+</code>
+
 h4. 0.2.1
 
 * Use pretty date in dates. Show real date as tooltip.
