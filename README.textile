@@ -11,11 +11,13 @@ h4. 0.3.0
 
 *NOTE!* Database schema was changed. Either disable and enable the plugin after upgrading to recreate the table. This will cause you to lose your history. If you do not want to loose history run the following SQL by hand.
 
+<pre>
 <code>
 ALTER TABLE <table_prefix>_dashboard_log 
 ADD COLUMN username VARCHAR(64) 
 AFTER message;
 </code>
+</pre>
 
 h4. 0.2.1
 

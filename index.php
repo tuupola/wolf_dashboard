@@ -30,7 +30,7 @@ Plugin::setInfos(array(
     'version'     => '0.3.0', 
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',    
-    'require_frog_version' => '0.9.3',
+    'require_frog_version' => '0.9.4',
     'update_url'  => 'http://www.appelsiini.net/download/frog-plugins.xml',
     'website'     => 'http://www.appelsiini.net/'
 ));
@@ -47,7 +47,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
     Observer::observe('page_add_after_save',    'dashboard_log_page_add');
     Observer::observe('page_delete',            'dashboard_log_page_delete');
     
-    /* These currently only work in MIT fork or 0.9.5 version of Frog. */
+    /* These currently only work in MIT fork (Toad) or 0.9.5 version of Frog. */
     Observer::observe('layout_after_delete',    'dashboard_log_layout_delete');
     Observer::observe('layout_after_add',       'dashboard_log_layout_add');
     Observer::observe('layout_after_edit',      'dashboard_log_layout_edit');
