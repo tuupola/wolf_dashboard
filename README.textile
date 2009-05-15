@@ -1,5 +1,9 @@
 h3. Changelog
 
+h4. 0.3.1
+
+* Use :username instead of [username] for custom logging.
+
 h4. 0.3.0
 
 * Prevent direct access to enable and disable scripts.

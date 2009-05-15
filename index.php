@@ -27,7 +27,7 @@ Plugin::setInfos(array(
     'id'          => 'dashboard',
     'title'       => 'Dashboard', 
     'description' => 'Keep up to date what is happening with your site.', 
-    'version'     => '0.3.0', 
+    'version'     => '0.3.1', 
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',    
     'require_frog_version' => '0.9.4',
