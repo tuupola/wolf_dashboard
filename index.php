@@ -9,7 +9,7 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *
  * Project home:
- *   http://www.appelsiini.net/
+ *   http://www.appelsiini.net/projects/dashboard
  *
  */
 
@@ -32,7 +32,7 @@ Plugin::setInfos(array(
     'author'      => 'Mika Tuupola',    
     'require_frog_version' => '0.9.4',
     'update_url'  => 'http://www.appelsiini.net/download/frog-plugins.xml',
-    'website'     => 'http://www.appelsiini.net/'
+    'website'     => 'http://www.appelsiini.net/projects/dashboard'
 ));
 
 /* Stuff for backend. */
