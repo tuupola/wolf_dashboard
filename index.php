@@ -27,7 +27,7 @@ Plugin::setInfos(array(
     'id'          => 'dashboard',
     'title'       => 'Dashboard', 
     'description' => 'Keep up to date what is happening with your site.', 
-    'version'     => '0.3.1', 
+    'version'     => '0.4.0-dev', 
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',    
     'require_frog_version' => '0.9.5',
@@ -77,7 +77,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $message      = __('Page <b>:title</b> was created by :name', 
                         array(':title' => $linked_title, 
                               ':name'  => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
 
     function dashboard_log_page_edit($page) {
@@ -86,14 +86,14 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $message      = __('Page <b>:title</b> was revised by :name', 
                         array(':title' => $linked_title, 
                               ':name' => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
 
     function dashboard_log_page_delete($page) {
         $message      = __('Page <b>:title</b> was deleted by :name', 
                         array(':title' =>  $page->title, 
                               ':name' => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
   
     /* Layout */
@@ -103,7 +103,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $message      = __('Layout <b>:title</b> was deleted by :name', 
                         array(':title' =>  $layout->name, 
                               ':name' => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
 
     function dashboard_log_layout_add($layout) {
@@ -112,7 +112,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $message      = __('Layout <b>:title</b> was created by :name', 
                         array(':title' =>  $linked_title, 
                               ':name' => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
     
     function dashboard_log_layout_edit($layout) {
@@ -121,7 +121,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $message      = __('Layout <b>:title</b> was revised by :name', 
                            array(':title' =>  $linked_title, 
                                  ':name' => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
 
     /* Snippet */
@@ -130,7 +130,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $message      = __('Snippet <b>:title</b> was deleted by :name', 
                         array(':title' =>  $snippet->name, 
                               ':name' => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
 
     function dashboard_log_snippet_add($snippet) {
@@ -139,7 +139,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $message      = __('Snippet <b>:title</b> was created by :name', 
                         array(':title' =>  $linked_title, 
                               ':name' => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
     
     function dashboard_log_snippet_edit($snippet) {
@@ -148,7 +148,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $message      = __('Snippet <b>:title</b> was revised by :name', 
                         array(':title' =>  $linked_title, 
                               ':name' => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
     
     function dashboard_log_comment_add($comment) {
@@ -164,7 +164,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $message      = __(':name :title.', 
                         array(':name'  => $comment->author_name,
                               ':title' =>  $linked_title));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'comment');
+        dashboard_log_event($message, 'core');
     }
 
     function dashboard_log_comment_delete($comment) {
@@ -173,7 +173,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
         $message      = __(':admin_name deleted comment by :author_name.', 
                         array(':author_name' => $comment->author_name,
                               ':admin_name'  => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'comment');
+        dashboard_log_event($message, 'core');
     }
 
     function dashboard_log_comment_approve($comment) {
@@ -185,7 +185,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
                         array(':author_name' => $comment->author_name,
                               ':title'       => $linked_title,
                               ':admin_name'  => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'comment');
+        dashboard_log_event($message, 'core');
     }
 
     function dashboard_log_comment_unapprove($comment) {
@@ -197,7 +197,7 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
                         array(':author_name' => $comment->author_name,
                               ':title'       => $linked_title,
                               ':admin_name'  => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'comment');
+        dashboard_log_event($message, 'core');
     }
 
     function dashboard_log_comment_edit($comment) {
@@ -209,44 +209,54 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
                         array(':author_name' => $comment->author_name,
                               ':title'       => $linked_title,
                               ':admin_name'  => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'comment');
+        dashboard_log_event($message, 'core');
     }
     
     function dashboard_log_plugin_enable($plugin) {
         $message      = __('Plugin <b>:title</b> was enabled by :name', 
                         array(':title' => $plugin,
                               ':name'  => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
     
     function dashboard_log_plugin_disable($plugin) {        
         $message      = __('Plugin <b>:title</b> was disabled by :name', 
                         array(':title' => $plugin, 
                               ':name'  => AuthUser::getRecord()->name));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
     
     function dashboard_log_admin_login($username) {
         $message      = __('User <b>:name</b> logged in.', 
                         array(':name'  => $username));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
 
     function dashboard_log_admin_login_failure($username) {
         $message      = __('User <b>:name</b> failed logging in.', 
                         array(':name'  => $username));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
     
     function dashboard_log_admin_logout($username) {
         $message      = __('User <b>:name</b> logged out.', 
                         array(':name'  => $username));
-        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
+        dashboard_log_event($message, 'core');
     }
     
-    function dashboard_log_event($message, $priority=DASHBOARD_LOG_NOTICE, $ident='misc') {
-        $data['ident']    = $ident;
-        $data['priority'] = $priority;
+    function dashboard_log_event($message, $ident='misc', $priority=DASHBOARD_LOG_NOTICE) {
+        /* BC. Order of parameters was swapped in 0.4.0. */
+        if (is_integer($ident)) {
+            $warning      = __('Message below from <b>:ident</b> uses old Dashboard API.', 
+                            array(':ident'  => $priority));
+            dashboard_log_event($warning, 'dashboard', DASHBOARD_LOG_WARNING);
+                            
+            $data['ident']    = $priority;
+            $data['priority'] = $ident;
+        } else {
+            $data['ident']    = $ident;
+            $data['priority'] = $priority;            
+        }
         $data['message']  = $message;
         $entry = new DashboardLogEntry($data);
         $entry->save();
