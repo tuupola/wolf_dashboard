@@ -18,7 +18,7 @@ if (!defined("FRAMEWORK_STARTING_MICROTIME")) {
     die("All your base are belong to us!");
 }
 
-$PDO = Record::getConnection();
+$pdo = Record::getConnection();
 
 $table = TABLE_PREFIX . "dashboard_log";
-$PDO->exec("DROP TABLE $table");
+$pdo->exec("DROP TABLE $table");

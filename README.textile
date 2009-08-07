@@ -1,5 +1,18 @@
 h3. Changelog
 
+h4. 0.4.0-dev
+
+* Fix install problem when system had PDO disable (aeischeid).
+* General code cleanup.
+
+*HEADS UP!* Order of $ident and $priority parameters was changed. Code is backward compatible. Still, from now on you should now use the following code in your plugins:
+
+<pre>
+<code>
+Observer::notify('log_event', $message, $ident, $priority);
+</code>
+</pre>
+
 h4. 0.3.1
 
 * Use :username instead of [username] for custom logging.

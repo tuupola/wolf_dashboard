@@ -18,11 +18,10 @@ if (!defined("FRAMEWORK_STARTING_MICROTIME")) {
     die("All your base are belong to us!");
 }
 
-$pdo = Record::getConnection();
-
+$pdo   = Record::getConnection();
 $table = TABLE_PREFIX . "dashboard_log";
 
-if ('mysql' == $pdo->getAttribute(PDO::ATTR_DRIVER_NAME)) {
+if (preg_match('/^mysql/', DB_DSN)) {
     /* Schema for MySQL */
     $pdo->exec("CREATE TABLE $table (
         id          INT(11) NOT NULL AUTO_INCREMENT,
