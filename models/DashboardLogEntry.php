@@ -27,7 +27,7 @@ class DashboardLogEntry extends Record
     {           
         $this->created_on = date('Y-m-d H:i:s');
         $this->username   = AuthUser::getRecord()->name;
-        $this->message    = str_replace(':username', $this->username, $this->message);
+        $this->message    = __($this->message, array(':username'  => $this->username));
         return true;
     }
     
