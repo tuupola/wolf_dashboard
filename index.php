@@ -30,7 +30,7 @@ Plugin::setInfos(array(
     'version'     => '0.3.1', 
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',    
-    'require_frog_version' => '0.9.4',
+    'require_frog_version' => '0.9.5',
     'update_url'  => 'http://www.appelsiini.net/download/frog-plugins.xml',
     'website'     => 'http://www.appelsiini.net/projects/dashboard'
 ));
@@ -70,233 +70,178 @@ if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
     Observer::observe('admin_after_logout',      'dashboard_log_admin_logout');
     
     Observer::observe('log_event',               'dashboard_log_event');
-    
+        
     function dashboard_log_page_add($page) {
-        $linked_title     = sprintf('<a href="%s">%s</a>', 
-                                    get_url('page/edit/' . $page->id), $page->title);
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Page <b>:title</b> was created by :name', 
-                                 array(':title' => $linked_title, 
-                                       ':name'  => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $linked_title = sprintf('<a href="%s">%s</a>', 
+                        get_url('page/edit/' . $page->id), $page->title);
+        $message      = __('Page <b>:title</b> was created by :name', 
+                        array(':title' => $linked_title, 
+                              ':name'  => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
 
     function dashboard_log_page_edit($page) {
-        $linked_title     = sprintf('<a href="%s">%s</a>', 
-                                    get_url('page/edit/' . $page->id), $page->title);
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Page <b>:title</b> was revised by :name', 
-                                 array(':title' => $linked_title, 
-                                       ':name' => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $linked_title = sprintf('<a href="%s">%s</a>', 
+                        get_url('page/edit/' . $page->id), $page->title);
+        $message      = __('Page <b>:title</b> was revised by :name', 
+                        array(':title' => $linked_title, 
+                              ':name' => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
 
     function dashboard_log_page_delete($page) {
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Page <b>:title</b> was deleted by :name', 
-                                 array(':title' =>  $page->title, 
-                                       ':name' => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('Page <b>:title</b> was deleted by :name', 
+                        array(':title' =>  $page->title, 
+                              ':name' => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
+  
+    /* Layout */
     
+    /* Frog triggers wrong event layout_after_edit ATM. */
     function dashboard_log_layout_delete($layout) {
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Layout <b>:title</b> was deleted by :name', 
-                                 array(':title' =>  $layout->name, 
-                                       ':name' => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('Layout <b>:title</b> was deleted by :name', 
+                        array(':title' =>  $layout->name, 
+                              ':name' => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
 
     function dashboard_log_layout_add($layout) {
-        $linked_title     = sprintf('<a href="%s">%s</a>', 
+        $linked_title = sprintf('<a href="%s">%s</a>', 
                                     get_url('layout/edit/' . $layout->id), $layout->name);
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Layout <b>:title</b> was created by :name', 
-                                 array(':title' =>  $linked_title, 
-                                       ':name' => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('Layout <b>:title</b> was created by :name', 
+                        array(':title' =>  $linked_title, 
+                              ':name' => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
     
     function dashboard_log_layout_edit($layout) {
-        $linked_title     = sprintf('<a href="%s">%s</a>', 
+        $linked_title = sprintf('<a href="%s">%s</a>', 
                                     get_url('layout/edit/' . $layout->id), $layout->name);
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Layout <b>:title</b> was revised by :name', 
-                                 array(':title' =>  $linked_title, 
-                                       ':name' => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('Layout <b>:title</b> was revised by :name', 
+                           array(':title' =>  $linked_title, 
+                                 ':name' => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
 
     /* Snippet */
     
     function dashboard_log_snippet_delete($snippet) {
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Snippet <b>:title</b> was deleted by :name', 
-                                 array(':title' =>  $snippet->name, 
-                                       ':name' => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('Snippet <b>:title</b> was deleted by :name', 
+                        array(':title' =>  $snippet->name, 
+                              ':name' => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
 
     function dashboard_log_snippet_add($snippet) {
-        $linked_title     = sprintf('<a href="%s">%s</a>', 
+        $linked_title = sprintf('<a href="%s">%s</a>', 
                                     get_url('snippet/edit/' . $snippet->id), $snippet->name);
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Snippet <b>:title</b> was created by :name', 
-                                 array(':title' =>  $linked_title, 
-                                       ':name' => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('Snippet <b>:title</b> was created by :name', 
+                        array(':title' =>  $linked_title, 
+                              ':name' => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
     
     function dashboard_log_snippet_edit($snippet) {
-        $linked_title     = sprintf('<a href="%s">%s</a>', 
+        $linked_title = sprintf('<a href="%s">%s</a>', 
                                     get_url('snippet/edit/' . $snippet->id), $snippet->name);
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Snippet <b>:title</b> was revised by :name', 
-                                 array(':title' =>  $linked_title, 
-                                       ':name' => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('Snippet <b>:title</b> was revised by :name', 
+                        array(':title' =>  $linked_title, 
+                              ':name' => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
     
     function dashboard_log_comment_add($comment) {
-
-        /*
-        It seems Page class here is NOT the model but the other Page class?
-        $page = Page::findByIdFrom('Page', $comment->page_id);
-        */
         
-        /* TODO: Fetch page title. */
-        $linked_title     = sprintf('<a href="%s">%s</a>', 
+        /*
+        TODO: It seems Page class here is NOT the model but the other Page class?
+        $page = Page::findByIdFrom('Page', $comment->page_id);
+        FIXME - This does not get called with SVN version of Frog?
+        TODO: Fetch page title. 
+        */
+        $linked_title = sprintf('<a href="%s">%s</a>', 
                                     get_url('plugin/comment/edit/' . $comment->id), 'posted a comment');
-        $data['ident']    = 'comment';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __(':name :title.', 
-                                 array(':name'  => $comment->author_name,
-                                       ':title' =>  $linked_title));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __(':name :title.', 
+                        array(':name'  => $comment->author_name,
+                              ':title' =>  $linked_title));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'comment');
     }
 
     function dashboard_log_comment_delete($comment) {
         
         /* TODO: Fetch page title. */
-        $data['ident']    = 'comment';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __(':admin_name deleted comment by :author_name.', 
-                                 array(':author_name' => $comment->author_name,
-                                       ':admin_name'  => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __(':admin_name deleted comment by :author_name.', 
+                        array(':author_name' => $comment->author_name,
+                              ':admin_name'  => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'comment');
     }
 
     function dashboard_log_comment_approve($comment) {
         
         /* TODO: Fetch page title. */
-        $linked_title     = sprintf('<a href="%s">%s</a>', 
-                                    get_url('plugin/comment/edit/' . $comment->id), 'comment');
-        $data['ident']    = 'comment';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __(':admin_name approved :title by :author_name.', 
-                                 array(':author_name' => $comment->author_name,
-                                       ':title'       => $linked_title,
-                                       ':admin_name'  => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $linked_title = sprintf('<a href="%s">%s</a>', 
+                                 get_url('plugin/comment/edit/' . $comment->id), 'comment');
+        $message      = __(':admin_name approved :title by :author_name.', 
+                        array(':author_name' => $comment->author_name,
+                              ':title'       => $linked_title,
+                              ':admin_name'  => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'comment');
     }
 
     function dashboard_log_comment_unapprove($comment) {
         
         /* TODO: Fetch page title. */
-        $linked_title     = sprintf('<a href="%s">%s</a>', 
-                                    get_url('plugin/comment/edit/' . $comment->id), 'comment');
-        $data['ident']    = 'comment';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __(':admin_name rejected :title by :author_name.', 
-                                 array(':author_name' => $comment->author_name,
-                                       ':title'       => $linked_title,
-                                       ':admin_name'  => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $linked_title = sprintf('<a href="%s">%s</a>', 
+                                 get_url('plugin/comment/edit/' . $comment->id), 'comment');
+        $message      = __(':admin_name rejected :title by :author_name.', 
+                        array(':author_name' => $comment->author_name,
+                              ':title'       => $linked_title,
+                              ':admin_name'  => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'comment');
     }
 
     function dashboard_log_comment_edit($comment) {
         
         /* TODO: Fetch page title. */
-        $linked_title     = sprintf('<a href="%s">%s</a>', 
+        $linked_title = sprintf('<a href="%s">%s</a>', 
                                     get_url('plugin/comment/edit/' . $comment->id), 'comment');
-        $data['ident']    = 'comment';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __(':admin_name edited :title by :author_name.', 
-                                 array(':author_name' => $comment->author_name,
-                                       ':title'       => $linked_title,
-                                       ':admin_name'  => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __(':admin_name edited :title by :author_name.', 
+                        array(':author_name' => $comment->author_name,
+                              ':title'       => $linked_title,
+                              ':admin_name'  => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'comment');
     }
     
     function dashboard_log_plugin_enable($plugin) {
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Plugin <b>:title</b> was enabled by :name', 
-                                 array(':title' => $plugin,
-                                       ':name'  => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('Plugin <b>:title</b> was enabled by :name', 
+                        array(':title' => $plugin,
+                              ':name'  => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
     
     function dashboard_log_plugin_disable($plugin) {        
-        $plugin_data      = Plugin::findAll();
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('Plugin <b>:title</b> was disabled by :name', 
-                                 array(':title' => $plugin, 
-                                       ':name'  => AuthUser::getRecord()->name));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('Plugin <b>:title</b> was disabled by :name', 
+                        array(':title' => $plugin, 
+                              ':name'  => AuthUser::getRecord()->name));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
     
     function dashboard_log_admin_login($username) {
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('User <b>:name</b> logged in.', 
-                                 array(':name'  => $username));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('User <b>:name</b> logged in.', 
+                        array(':name'  => $username));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
 
     function dashboard_log_admin_login_failure($username) {
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('User <b>:name</b> failed logging in.', 
-                                 array(':name'  => $username));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('User <b>:name</b> failed logging in.', 
+                        array(':name'  => $username));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
     
     function dashboard_log_admin_logout($username) {
-        $data['ident']    = 'core';
-        $data['priority'] = DASHBOARD_LOG_NOTICE;
-        $data['message']  = __('User <b>:name</b> logged out.', 
-                                 array(':name'  => $username));
-        $entry = new DashboardLogEntry($data);
-        $entry->save();
+        $message      = __('User <b>:name</b> logged out.', 
+                        array(':name'  => $username));
+        dashboard_log_event($message, DASHBOARD_LOG_NOTICE, 'core');
     }
     
     function dashboard_log_event($message, $priority=DASHBOARD_LOG_NOTICE, $ident='misc') {
