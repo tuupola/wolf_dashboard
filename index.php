@@ -36,7 +36,7 @@ Plugin::setInfos(array(
 ));
 
 /* Stuff for backend. */
-if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
+if (false !== strpos($_SERVER['PHP_SELF'], ADMIN_DIR)) {
     
     AutoLoader::addFolder(dirname(__FILE__) . '/models');
     AutoLoader::addFolder(dirname(__FILE__) . '/lib');
