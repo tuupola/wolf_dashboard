@@ -33,7 +33,7 @@ class DashboardController extends PluginController
             $this->display('dashboard/views/index', array(
                 'log_entry_today'     => Record::findAllFrom('DashboardLogEntry', 'created_on > CURRENT_DATE() ORDER BY created_on DESC'),
                 'log_entry_yesterday' => Record::findAllFrom('DashboardLogEntry', 'created_on > DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) AND created_on < CURRENT_DATE() ORDER BY created_on DESC'),
-                'log_entry_older'     => Record::findAllFrom('DashboardLogEntry', 'created_on < DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) ORDER BY created_on DESC')
+                'log_entry_older'     => Record::findAllFrom('DashboardLogEntry', 'created_on < DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) AND created_on > DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH) ORDER BY created_on DESC')
             ));            
         } else {
              /* Otherwise assume SQLite */
