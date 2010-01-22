@@ -1,6 +1,6 @@
 h3. Changelog
 
-h4. 0.4.0-dev
+h4. 0.4.0
 
 * Fix install problem when system had PDO disable (aeischeid).
 * General code cleanup.
