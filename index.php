@@ -25,14 +25,14 @@ define('DASHBOARD_LOG_DEBUG',    7);
 
 Plugin::setInfos(array(
     'id'          => 'dashboard',
-    'title'       => 'Dashboard', 
-    'description' => 'Keep up to date what is happening with your site.', 
-    'version'     => '0.4.0', 
+    'title'       => __('Dashboard'), 
+    'description' => __('Keep up to date what is happening with your site.'), 
+    'version'     => '0.4.1',
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',    
-    'require_frog_version' => '0.9.5',
-    'update_url'  => 'http://www.appelsiini.net/download/frog-plugins.xml',
-    'website'     => 'http://www.appelsiini.net/projects/dashboard'
+    'update_url'  => 'http://www.appelsiini.net/download/wolf-plugins.xml',
+    'website'     => 'http://www.appelsiini.net/projects/dashboard',
+    'require_wolf_version' => '0.6.0'
 ));
 
 /* Stuff for backend. */
