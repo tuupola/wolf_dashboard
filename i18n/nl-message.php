@@ -1,7 +1,7 @@
 <?php
 
 /*
- * German translation for Wolf CMS dashboard plugin
+ * Dutch translation for Wolf CMS dashboard plugin
  *
  * Copyright (c) 2010 Samuël van Laere
  *
