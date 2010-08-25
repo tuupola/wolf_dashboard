@@ -41,7 +41,7 @@ if (false !== strpos($_SERVER['PHP_SELF'], ADMIN_DIR)) {
     AutoLoader::addFolder(dirname(__FILE__) . '/models');
     AutoLoader::addFolder(dirname(__FILE__) . '/lib');
     
-    Plugin::addController('dashboard', 'Dashboard');
+    Plugin::addController('dashboard', __('Dashboard'));
 
     Observer::observe('page_edit_after_save',   'dashboard_log_page_edit');
     Observer::observe('page_add_after_save',    'dashboard_log_page_add');

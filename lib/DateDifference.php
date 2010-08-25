@@ -32,30 +32,33 @@ class DateDifference
                 
         if($dayDiff == 0) {
             if($diff < 60) {
-                return 'Just now';
+                return __('Just now');
             } elseif($diff < 120) {
-                return '1 minute ago';
+                return __('1 minute ago');
             } elseif($diff < 3600) {
-                return floor($diff/60) . ' minutes ago';
+                return __(':minutes minutes ago', array(':minutes' => floor($diff/60)));
             } elseif($diff < 7200) {
-                return '1 hour ago';
+                return __('1 hour ago');
             } elseif($diff < 86400) {
-                return floor($diff/3600) . ' hours ago';
+                return __(':hours hours ago', array(':hours' => floor($diff/3600)));
             }
         } elseif($dayDiff == 1) {
-            return 'Yesterday';
+            return __('Yesterday');
         } elseif($dayDiff < 7) {
-            return $dayDiff . ' days ago';
+            return __(':days days ago', array(':days' => $dayDiff));
         } elseif($dayDiff == 7) {
-            return '1 week ago';
+            return __('1 week ago');
         } elseif($dayDiff < (7*6)) { // Modifications Start Here
             // 6 weeks at most
-            return ceil($dayDiff/7) . ' weeks ago';
+            return __(':weeks weeks ago', array(':weeks' => ceil($dayDiff/7)));
         } elseif($dayDiff < 365) {
-            return ceil($dayDiff/(365/12)) . ' months ago';
+            return __(':months months ago', array(':months' => ceil($dayDiff/(365/12))));
         } else {
             $years = round($dayDiff/365);
-            return $years . ' year' . ($years != 1 ? 's' : '') . ' ago';
+            if($years == 1)
+            	return __('1 year ago');
+            else
+            	return __(':years years ago', array(':years' => $years));
         }
     }
 }
