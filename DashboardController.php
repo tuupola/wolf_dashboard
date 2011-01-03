@@ -22,7 +22,7 @@ class DashboardController extends PluginController
         }
 
         $this->setLayout('backend');
-        #$this->assignToLayout('sidebar', new View('../../../plugins/dashboard/views/sidebar'));
+        $this->assignToLayout('sidebar', new View('../../plugins/dashboard/views/sidebar'));
     }
 
     function index() {

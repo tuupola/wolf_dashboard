@@ -36,7 +36,7 @@ Plugin::setInfos(array(
 ));
 
 /* Stuff for backend. */
-if (false !== strpos($_SERVER['PHP_SELF'], ADMIN_DIR)) {
+if (defined('CMS_BACKEND')) {
     
     AutoLoader::addFolder(dirname(__FILE__) . '/models');
     AutoLoader::addFolder(dirname(__FILE__) . '/lib');

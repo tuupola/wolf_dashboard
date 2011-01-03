@@ -1,6 +1,4 @@
-<p>
     <h1><?php echo __('Dashboard'); ?></h1>
-</p>
 
 <form action="<?php echo get_url('plugin/dashboard/clear'); ?>" method="post">
   <b><?php echo __('Today'); ?></b>
