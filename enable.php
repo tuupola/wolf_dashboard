@@ -43,4 +43,3 @@ if (preg_match('/^mysql/', DB_DSN)) {
         created_on  DATETIME DEFAULT NULL
         )");
 }
-

@@ -27,7 +27,7 @@ Plugin::setInfos(array(
     'id'          => 'dashboard',
     'title'       => __('Dashboard'), 
     'description' => __('Keep up to date what is happening with your site.'), 
-    'version'     => '0.4.1',
+    'version'     => '0.5.0',
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',    
     'update_url'  => 'http://www.appelsiini.net/download/wolf-plugins.xml',
@@ -41,7 +41,7 @@ if (defined('CMS_BACKEND')) {
     AutoLoader::addFolder(dirname(__FILE__) . '/models');
     AutoLoader::addFolder(dirname(__FILE__) . '/lib');
     
-    Plugin::addController('dashboard', __('Dashboard'));
+    Plugin::addController('dashboard', __('Dashboard'), "admin_view", true);
 
     Observer::observe('page_edit_after_save',   'dashboard_log_page_edit');
     Observer::observe('page_add_after_save',    'dashboard_log_page_add');
