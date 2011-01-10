@@ -3,7 +3,7 @@
 /*
  * Dutch translation for Wolf CMS dashboard plugin
  *
- * Copyright (c) 2010 Samuël van Laere
+ * Copyright (c) 2010-2011 Samuël van Laere
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php

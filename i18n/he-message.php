@@ -3,7 +3,7 @@
 /*
  * Hebrew translation for Wolf CMS dashboard plugin
  *
- * Copyright (c) 2010 Eyal Berman
+ * Copyright (c) 2010-2011 Eyal Berman
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php

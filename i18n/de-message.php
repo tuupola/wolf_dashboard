@@ -3,7 +3,7 @@
 /*
  * German translation for Wolf CMS dashboard plugin
  *
- * Copyright (c) 2010 Sebastian Joseph
+ * Copyright (c) 2010-2011 Sebastian Joseph
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
