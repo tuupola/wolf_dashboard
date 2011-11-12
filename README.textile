@@ -1,3 +1,7 @@
+h3. New maintainer
+
+I do not maintain this code anymore. Latest version can be found at https://github.com/mvdkleijn/dashboard
+
 h3. Changelog
 
 h4. 0.5.0
