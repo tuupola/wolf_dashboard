@@ -1,6 +1,7 @@
 h3. New maintainer
 
-I do not maintain this code anymore. Latest version can be found at https://github.com/mvdkleijn/dashboard
+I do not maintain this code anymore. Latest version can be found at "https://github.com/mvdkleijn/dashboard":https://github.com/mvdkleijn/dashboard.
+
 
 h3. Changelog
 
